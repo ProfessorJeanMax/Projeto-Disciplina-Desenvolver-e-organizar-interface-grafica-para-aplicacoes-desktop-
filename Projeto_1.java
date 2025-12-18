@@ -9,10 +9,6 @@ package projeto_1;
  * @author JeanMaxSimonKrebs
  */
 public class Projeto_1 {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         // TODO code application logic here
         javax.swing.SwingUtilities.invokeLater(()->{

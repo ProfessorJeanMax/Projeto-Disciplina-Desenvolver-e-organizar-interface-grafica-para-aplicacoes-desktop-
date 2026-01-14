@@ -2,15 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package projeto_1.controller.produto;
+package projeto_base.controller.produto;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import projeto_1.controller.CadastroController;
-import projeto_1.model.Produto;
+import projeto_base.controller.CadastroController;
+import projeto_base.model.Produto;
+import projeto_base.repository.ClienteRepository;
+import projeto_base.repository.ProdutoRepository;
 
 /**
  *
@@ -49,7 +51,8 @@ public class ProdutoController extends CadastroController{
         Produto produto = new Produto(
         txtDescricao.getText(), txtPreco.getText(), txtEstoque.getText());
         
-        JOptionPane.showMessageDialog(view, "Produto Salvo");
+        // **Salva no repositório**
+        ProdutoRepository.salvar(produto);
         
         view.fechar();
     }

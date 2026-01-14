@@ -1,12 +1,14 @@
-package projeto_1.controller.funcionario;
+package projeto_base.controller.funcionario;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import projeto_1.controller.CadastroController;
-import projeto_1.model.Funcionario;
+import projeto_base.controller.CadastroController;
+import projeto_base.model.Funcionario;
+import projeto_base.repository.FuncionarioRepository;
+import projeto_base.repository.ProdutoRepository;
 
 /**
  *
@@ -48,8 +50,9 @@ public class FuncionarioController extends CadastroController {
         Funcionario funcionario = new Funcionario(
                 txtNome.getText(), txtCpf.getText(), txtCargo.getText(), txtSalario.getText());
         
-        JOptionPane.showMessageDialog(view, "Funcionário Salvo");
-        
+        // **Salva no repositório**
+        FuncionarioRepository.salvar(funcionario);
+                
         view.fechar();
     }
     

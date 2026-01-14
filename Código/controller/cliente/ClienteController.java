@@ -1,16 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package projeto_1.controller.cliente;
+package projeto_base.controller.cliente;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import projeto_1.controller.CadastroController;
-import projeto_1.model.Cliente;
+import projeto_base.controller.CadastroController;
+import projeto_base.model.Cliente;
+import projeto_base.repository.ClienteRepository;
 
 /**
  *
@@ -32,38 +29,37 @@ public class ClienteController extends CadastroController {
         painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS));
 
         txtNome = new JTextField(15);
-        txtEmail = new JTextField(15);
-        txtTelefone = new JTextField(15);
         txtCpf = new JTextField(15);
+        txtTelefone = new JTextField(15);
+        txtEmail = new JTextField(15);
         txtEndereco = new JTextField(15);
 
         painel.add(new JLabel("Nome"));
         painel.add(txtNome);
 
-        painel.add(new JLabel("Email"));
-        painel.add(txtEmail);
+        painel.add(new JLabel("Cpf"));
+        painel.add(txtCpf);
 
         painel.add(new JLabel("Telefone"));
         painel.add(txtTelefone);
 
-        painel.add(new JLabel("CPF"));
-        painel.add(txtCpf);
+        painel.add(new JLabel("Email"));
+        painel.add(txtEmail);
 
-        painel.add(new JLabel("Endereco"));
+        painel.add(new JLabel("Endereço"));
         painel.add(txtEndereco);
-
     }
 
     @Override
     public void salvar() {
         Cliente cliente = new Cliente(
-        txtNome.getText(), txtCpf.getText(), txtTelefone.getText(), 
-                txtEmail.getText(), txtEndereco.getText());
-        
-        JOptionPane.showMessageDialog(view, "Cliente Salvo");
+                txtNome.getText(), txtCpf.getText(), txtTelefone.getText(), txtEmail.getText(), txtEndereco.getText());
+
+        // **Salva no repositório**
+        ClienteRepository.salvar(cliente);
         
         view.fechar();
     }
-
+    
 
 }

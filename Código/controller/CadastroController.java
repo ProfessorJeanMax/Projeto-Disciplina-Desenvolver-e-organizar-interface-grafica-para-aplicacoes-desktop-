@@ -1,20 +1,14 @@
-package projeto_1.controller;
+package projeto_base.controller;
 
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import projeto_1.view.cadastro.TelaCadastro;
+import projeto_base.view.TelaCadastro;
 
-/**
- *
- * @author JeanMaxSimonKrebs
- */
 public abstract class CadastroController {
 
     protected TelaCadastro view;
+    protected int indexEdicao = -1;
 
     public void setView(TelaCadastro view) {
         this.view = view;
-
         configurarTela();
     }
 
@@ -22,4 +16,11 @@ public abstract class CadastroController {
 
     public abstract void salvar();
 
+    public boolean isEdicao() {
+        return indexEdicao != -1;
+    }
+
+    public void setIndexEdicao(int index) {
+        this.indexEdicao = index;
+    }
 }

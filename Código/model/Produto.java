@@ -1,4 +1,4 @@
-package projeto_1.model;
+package projeto_base.model;
 
 /**
  *

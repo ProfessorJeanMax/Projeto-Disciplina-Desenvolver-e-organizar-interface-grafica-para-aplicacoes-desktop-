@@ -1,4 +1,4 @@
-package projeto_1.model;
+package projeto_base.model;
 
 /**
  *
@@ -17,6 +17,10 @@ public class Cliente {
         this.telefone = telefone;
         this.email = email;
         this.endereco = endereco;
+    }
+
+    public Cliente(String nome, String email) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public String getNome() {
@@ -58,5 +62,11 @@ public class Cliente {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }    
+
+    public boolean isValido() {
+
+        return false;
+
+    }
     
 }

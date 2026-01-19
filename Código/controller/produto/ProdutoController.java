@@ -48,8 +48,10 @@ public class ProdutoController extends CadastroController{
 
     @Override
     public void salvar() {
+        
+        
         Produto produto = new Produto(
-        txtDescricao.getText(), txtPreco.getText(), txtEstoque.getText());
+        txtDescricao.getText(), Integer.parseInt(txtPreco.getText()), Integer.parseInt(txtEstoque.getText()));
         
         // **Salva no repositório**
         ProdutoRepository.salvar(produto);

@@ -5,6 +5,8 @@ package projeto_base.model;
  * @author JeanMaxSimonKrebs
  */
 public class Funcionario {
+
+    private int id;
     private String nome;
     private String cpf;
     private String cargo;
@@ -15,6 +17,25 @@ public class Funcionario {
         this.cpf = cpf;
         this.cargo = cargo;
         this.salario = salario;
+    }
+
+    public Funcionario(int id, String nome, String cpf, String cargo, String salario) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.cargo = cargo;
+        this.salario = salario;
+    }
+
+    @Override
+    public String toString() {
+        return "Funcionario{" + "id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", cargo=" + cargo + ", salario=" + salario + '}';
+    }
+
+    
+    
+    public int getId() {
+        return id;
     }
 
     public String getNome() {
@@ -48,6 +69,11 @@ public class Funcionario {
     public void setSalario(String salario) {
         this.salario = salario;
     }
-    
-    
+
+    // 🔹 Validação simples (opcional para aula)
+    public boolean isValido() {
+        return nome != null && !nome.isBlank()
+                && cpf != null && !cpf.isBlank();
+    }
+
 }

@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import projeto_base.controller.CadastroController;
 import projeto_base.model.Funcionario;
+import projeto_base.repository.ClienteRepository;
 import projeto_base.repository.FuncionarioRepository;
 import projeto_base.repository.ProdutoRepository;
 
@@ -15,6 +16,7 @@ import projeto_base.repository.ProdutoRepository;
  * @author JeanMaxSimonKrebs
  */
 public class FuncionarioController extends CadastroController {
+
     private JTextField txtNome;
     private JTextField txtCpf;
     private JTextField txtCargo;
@@ -49,13 +51,20 @@ public class FuncionarioController extends CadastroController {
     public void salvar() {
         Funcionario funcionario = new Funcionario(
                 txtNome.getText(), txtCpf.getText(), txtCargo.getText(), txtSalario.getText());
-        
+
+        if (!funcionario.isValido()) {
+            JOptionPane.showMessageDialog(view, "Dados inválidos!");
+            return;
+        }
         // **Salva no repositório**
         FuncionarioRepository.salvar(funcionario);
-                
+
+        JOptionPane.showMessageDialog(view,
+                "Funcionário salvo com sucesso!\nID: " + funcionario.getId()
+        );
+
         view.fechar();
+
     }
-    
-    
-    
+
 }

@@ -9,8 +9,8 @@ import projeto_base.controller.RelatorioController;
 
 public class TelaRelatorio extends JDialog {
 
-    private JTable tabela;
-    private RelatorioController controller;
+    protected JTable tabela;
+    protected RelatorioController controller;
 
     public TelaRelatorio(JFrame parent, RelatorioController controller) {
         super(parent, true);
@@ -22,16 +22,17 @@ public class TelaRelatorio extends JDialog {
         controller.setView(this);
     }
 
-    private void configurarJanela(JFrame parent) {
+    protected void configurarJanela(JFrame parent) {
         setSize(600, 400);
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    private void inicializarComponentes() {
+    protected void inicializarComponentes() {
         setLayout(new BorderLayout());
 
         tabela = new JTable();
+        tabela.setDefaultEditor(Object.class, null); // somente leitura
         add(new JScrollPane(tabela), BorderLayout.CENTER);
     }
 

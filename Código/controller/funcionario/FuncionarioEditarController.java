@@ -7,30 +7,28 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import projeto_base.controller.CadastroController;
 import projeto_base.controller.EditarController;
-import projeto_base.controller.cliente.ClienteController;
+import projeto_base.controller.RelatorioController;
 import projeto_base.model.Funcionario;
-import projeto_base.repository.ClienteRepository;
 import projeto_base.repository.FuncionarioRepository;
-import projeto_base.view.TelaSelecionar;
+import projeto_base.repository.ProdutoRepository;
 import projeto_base.view.funcionario.TelaFuncionario;
 
-public class FuncionarioEditarController extends EditarController<Funcionario> {
+public class FuncionarioEditarController extends EditarController {
 
     private TelaFuncionario telaFuncionario;
-    private Funcionario funcionarioSelecionado;
 
-    public FuncionarioEditarController() {
-    }
-
-    public FuncionarioEditarController(Funcionario funcionarioSelecionado) {
-        this.funcionarioSelecionado = funcionarioSelecionado;
-    }
-
+    // =====================================================
+    // CONFIGURAR TELA
+    // =====================================================
     @Override
     public void configurarTela() {
+
         telaFuncionario = new TelaFuncionario();
 
-        if (funcionarioSelecionado != null) {
+        // 🔹 edição simples
+        if (selecionado != null) {
+            Funcionario funcionarioSelecionado = (Funcionario) selecionado;
+
             telaFuncionario.getTxtNome().setText(funcionarioSelecionado.getNome());
             telaFuncionario.getTxtCpf().setText(funcionarioSelecionado.getCpf());
             telaFuncionario.getTxtCargo().setText(funcionarioSelecionado.getCargo());
@@ -46,9 +44,16 @@ public class FuncionarioEditarController extends EditarController<Funcionario> {
         painel.repaint();
     }
 
+    // =====================================================
+    // SALVAR
+    // =====================================================
     @Override
     public void salvar() {
-        if (funcionarioSelecionado != null) {
+
+        if (selecionado != null) {
+
+            Funcionario funcionarioSelecionado = (Funcionario) selecionado;
+
             funcionarioSelecionado.setNome(telaFuncionario.getTxtNome().getText());
             funcionarioSelecionado.setCpf(telaFuncionario.getTxtCpf().getText());
             funcionarioSelecionado.setCargo(telaFuncionario.getTxtCargo().getText());
@@ -61,33 +66,42 @@ public class FuncionarioEditarController extends EditarController<Funcionario> {
         }
     }
 
-    @Override
-    protected List<Funcionario> listar() {
-        return FuncionarioRepository.listar();
-    }
-
-    @Override
-    protected void configurarTabela(TelaSelecionar tela, List<Funcionario> lista) {
-        tela.configurarTabelaFuncionario(lista);
-    }
-
-    @Override
-    protected void setSelecionado(Funcionario obj) {
-        this.funcionarioSelecionado = obj;
-    }
-
-    @Override
-    protected String getTituloSelecionar() {
-        return "Selecione um Funcionário";
-    }
-    
+    // =====================================================
+    // FLUXO
+    // =====================================================
     @Override
     public boolean verificar(JFrame parent) {
         return !FuncionarioRepository.listar().isEmpty();
     }
 
     @Override
-    public FuncionarioController getCadastroController() {
-        return new FuncionarioController(); // já sabe que é Func
+    public String getTituloSelecionar() {
+        return "Selecione um Funcionário";
+    }
+
+    // =====================================================
+    // INTEGRAÇÕES
+    // =====================================================
+    @Override
+    public CadastroController getCadastroController() {
+        return new FuncionarioController();
+    }
+
+    @Override
+    public RelatorioController getRelatorioController() {
+        return new FuncionarioRelatorioController();
+    }
+    
+    @Override
+    public List listar() {
+        return FuncionarioRepository.listar();
+    }
+
+   @Override
+    public void excluir() {
+        if (selecionado != null) {
+            FuncionarioRepository.remover((Funcionario) selecionado);
+            JOptionPane.showMessageDialog(null, "Funcionário excluído com sucesso!");
+        }
     }
 }

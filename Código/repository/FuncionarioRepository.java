@@ -32,8 +32,8 @@ public class FuncionarioRepository {
         return funcionarios.get(index);
     }
 
-    public static void remover(int index) {
-        funcionarios.remove(index);
+    public static void remover(Funcionario funcionario) {
+        funcionarios.remove(funcionario);
     }
 
 }

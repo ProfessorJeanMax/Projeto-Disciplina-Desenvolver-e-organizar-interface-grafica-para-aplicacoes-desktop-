@@ -52,12 +52,26 @@ public class ClienteController extends CadastroController {
 
     @Override
     public void salvar() {
-        Cliente cliente = new Cliente(
-                txtNome.getText(), txtCpf.getText(), txtTelefone.getText(), txtEmail.getText(), txtEndereco.getText());
 
-        // **Salva no repositório**
+        Cliente cliente = new Cliente(
+            txtNome.getText(),
+            txtCpf.getText(),
+            txtTelefone.getText(),
+            txtEmail.getText(),
+            txtEndereco.getText()
+        );
+
+        if (!cliente.isValido()) {
+            JOptionPane.showMessageDialog(view, "Dados inválidos!");
+            return;
+        }
+
         ClienteRepository.salvar(cliente);
-        
+
+        JOptionPane.showMessageDialog(view,
+            "Cliente salvo com sucesso!\nID: " + cliente.getId()
+        );
+
         view.fechar();
     }
     

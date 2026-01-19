@@ -2,39 +2,69 @@ package projeto_base.controller;
 
 import java.util.List;
 import javax.swing.JFrame;
-import projeto_base.view.TelaSelecionar;
 import projeto_base.view.TelaEditar;
 
-public abstract class EditarController<T> {
+public abstract class EditarController {
 
     protected JFrame parent;
 
-    // === A view que será usada para editar ===
+    // === View principal de edição ===
     protected TelaEditar view;
 
-    // === Chamado pela TelaEditar para definir a view ===
+    // === Seleções ===
+    protected Object selecionado;   // edição única
+
+    // =====================================================
+    // VIEW
+    // =====================================================
     public void setView(TelaEditar view) {
         this.view = view;
     }
 
-    // === Método obrigatório que cada controller concreto implementa para criar o formulário ===
-    public abstract void configurarTela();
-
-    // === Método obrigatório para salvar os dados ===
-    public abstract void salvar();
-
-    // === Verificação antes de abrir a tela de edição ===
+    // =====================================================
+    // FLUXO
+    // =====================================================
+    /**
+     * Verifica se existem dados antes de abrir edição
+     *
+     * @param parent
+     * @return
+     */
     public abstract boolean verificar(JFrame parent);
 
-    /* ===== Métodos que cada controller concreto implementa ===== */
-    protected abstract List<T> listar();
+    /**
+     * Lista os registros disponíveis (usado pela TelaSelecionar)
+     */
+    public abstract List listar();
 
-    protected abstract void configurarTabela(TelaSelecionar tela, List<T> lista);
+    /**
+     * Define o objeto selecionado (edição única)
+     */
+    public void setSelecionado(Object obj) {
+        this.selecionado = obj;
+    }
 
-    protected abstract void setSelecionado(T obj);
+    /**
+     * Monta o formulário
+     */
+    public abstract void configurarTela();
 
-    protected abstract String getTituloSelecionar();
+    /**
+     * Salva (um ou vários registros)
+     */
+    public abstract void salvar();
 
+    public abstract void excluir();
+
+    /**
+     * Título da tela de seleção
+     */
+    public abstract String getTituloSelecionar();
+
+    // =====================================================
+    // INTEGRAÇÕES
+    // =====================================================
     public abstract CadastroController getCadastroController();
 
+    public abstract RelatorioController getRelatorioController();
 }

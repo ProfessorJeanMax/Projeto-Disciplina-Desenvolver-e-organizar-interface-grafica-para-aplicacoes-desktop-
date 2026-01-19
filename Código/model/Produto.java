@@ -5,15 +5,35 @@ package projeto_base.model;
  * @author JeanMaxSimonKrebs
  */
 public class Produto {
-    
+    private int id;
     private String descricao;
-    private String preco;
-    private String estoque;
+    private int preco;
+    private int estoque;
 
-    public Produto(String descricao, String preco, String estoque) {
+    public Produto(String descricao, int preco, int estoque) {
         this.descricao = descricao;
         this.preco = preco;
         this.estoque = estoque;
+    }
+
+    
+    
+    public Produto(int id, String descricao, int preco, int estoque) {
+        this.id = id;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.estoque = estoque;
+    }
+
+    @Override
+    public String toString() {
+        return "Produto{" + "id=" + id + ", descricao=" + descricao + ", preco=" + preco + ", estoque=" + estoque + '}';
+    }
+    
+    
+    
+    public int getId() {
+        return id;
     }
 
     public String getDescricao() {
@@ -24,21 +44,23 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public String getPreco() {
+    public int getPreco() {
         return preco;
     }
 
-    public void setPreco(String preco) {
+    public void setPreco(int preco) {
         this.preco = preco;
     }
 
-    public String getEstoque() {
+    public int getEstoque() {
         return estoque;
     }
 
-    public void setEstoque(String estoque) {
+    public void setEstoque(int estoque) {
         this.estoque = estoque;
     }
     
-    
+    public boolean isValido() {
+        return descricao != null && !descricao.isBlank();
+    }
 }

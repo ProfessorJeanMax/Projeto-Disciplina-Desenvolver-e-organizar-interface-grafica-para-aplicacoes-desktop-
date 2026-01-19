@@ -2,6 +2,7 @@ package projeto_base.repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import projeto_base.model.Cliente;
 import projeto_base.model.Funcionario;
 import projeto_base.model.Produto;
 
@@ -31,7 +32,8 @@ public class ProdutoRepository {
         return produtos.get(index);
     }
 
-    public static void remover(int index) {
-        produtos.remove(index);
+    public static void remover(Produto produto) {
+        produtos.remove(produto);
     }
+
 }

@@ -7,28 +7,29 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import projeto_base.controller.CadastroController;
 import projeto_base.controller.EditarController;
+import projeto_base.controller.RelatorioController;
 import projeto_base.model.Cliente;
 import projeto_base.repository.ClienteRepository;
+import projeto_base.repository.ProdutoRepository;
 import projeto_base.view.TelaSelecionar;
 import projeto_base.view.cliente.TelaCliente;
 
-public class ClienteEditarController extends EditarController<Cliente> {
+public class ClienteEditarController extends EditarController {
 
     private TelaCliente telaCliente;
-    private Cliente clienteSelecionado;
 
-    public ClienteEditarController() {
-    }
-
-    public ClienteEditarController(Cliente clienteSelecionado) {
-        this.clienteSelecionado = clienteSelecionado;
-    }
-
+    // =====================================================
+    // CONFIGURAR TELA
+    // =====================================================
     @Override
     public void configurarTela() {
+
         telaCliente = new TelaCliente();
 
-        if (clienteSelecionado != null) {
+        // 🔹 edição única
+        if (selecionado != null) {
+            Cliente clienteSelecionado = (Cliente) selecionado;
+
             telaCliente.getTxtNome().setText(clienteSelecionado.getNome());
             telaCliente.getTxtCpf().setText(clienteSelecionado.getCpf());
             telaCliente.getTxtTelefone().setText(clienteSelecionado.getTelefone());
@@ -45,9 +46,16 @@ public class ClienteEditarController extends EditarController<Cliente> {
         painel.repaint();
     }
 
+    // =====================================================
+    // SALVAR
+    // =====================================================
     @Override
     public void salvar() {
-        if (clienteSelecionado != null) {
+
+        if (selecionado != null) {
+
+            Cliente clienteSelecionado = (Cliente) selecionado;
+
             clienteSelecionado.setNome(telaCliente.getTxtNome().getText());
             clienteSelecionado.setCpf(telaCliente.getTxtCpf().getText());
             clienteSelecionado.setTelefone(telaCliente.getTxtTelefone().getText());
@@ -61,24 +69,8 @@ public class ClienteEditarController extends EditarController<Cliente> {
         }
     }
 
-    // ===== Implementação dos métodos para TelaSelecionar =====
     @Override
-    protected List<Cliente> listar() {
-        return ClienteRepository.listar();
-    }
-
-    @Override
-    protected void configurarTabela(TelaSelecionar tela, List<Cliente> lista) {
-        tela.configurarTabelaCliente(lista);
-    }
-
-    @Override
-    protected void setSelecionado(Cliente obj) {
-        this.clienteSelecionado = obj;
-    }
-
-    @Override
-    protected String getTituloSelecionar() {
+    public String getTituloSelecionar() {
         return "Selecione um Cliente";
     }
 
@@ -87,8 +79,33 @@ public class ClienteEditarController extends EditarController<Cliente> {
         return !ClienteRepository.listar().isEmpty();
     }
 
+    // =====================================================
+    // CADASTRO
+    // =====================================================
     @Override
     public CadastroController getCadastroController() {
-        return new ClienteController(); // já sabe que é cliente
+        return new ClienteController();
     }
+
+    // =====================================================
+    // RELATÓRIO (USADO NA SELEÇÃO)
+    // =====================================================
+    @Override
+    public RelatorioController getRelatorioController() {
+        return new ClienteRelatorioController();
+    }
+
+    @Override
+    public List listar() {
+        return ClienteRepository.listar();
+    }
+
+   @Override
+    public void excluir() {
+        if (selecionado != null) {
+            ClienteRepository.remover((Cliente) selecionado);
+            JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso!");
+        }
+    }
+
 }

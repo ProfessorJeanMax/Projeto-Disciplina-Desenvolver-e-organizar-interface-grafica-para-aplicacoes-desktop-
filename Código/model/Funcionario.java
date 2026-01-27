@@ -4,7 +4,7 @@ package projeto_base.model;
  *
  * @author JeanMaxSimonKrebs
  */
-public class Funcionario {
+public class Funcionario implements Perfil {
 
     private int id;
     private String nome;

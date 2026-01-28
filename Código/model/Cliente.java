@@ -1,6 +1,6 @@
 package projeto_base.model;
 
-public class Cliente {
+public class Cliente implements Perfil {
 
     private int id;
     private String nome;
@@ -39,10 +39,13 @@ public class Cliente {
         return id;
     }
 
+    
+    @Override
     public String getNome() {
         return nome;
     }
 
+    @Override
     public String getCpf() {
         return cpf;
     }

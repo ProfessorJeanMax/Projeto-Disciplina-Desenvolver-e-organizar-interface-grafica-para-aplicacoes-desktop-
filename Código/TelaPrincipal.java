@@ -19,6 +19,9 @@ import projeto_base.controller.produto.ProdutoController;
 import projeto_base.controller.produto.ProdutoEditarController;
 import projeto_base.controller.produto.ProdutoRelatorioController;
 import projeto_base.controller.venda.VendaController;
+import projeto_base.model.Cliente;
+import projeto_base.model.Funcionario;
+import projeto_base.model.Perfil;
 import projeto_base.view.TelaCadastro;
 import projeto_base.view.TelaEditar;
 import projeto_base.view.TelaExcluir;
@@ -29,10 +32,29 @@ import projeto_base.view.venda.TelaVenda;
 
 public class TelaPrincipal extends JFrame {
 
+    private Cliente clienteLogado;
+    private Funcionario funcionarioLogado;
 //construtor
+
     public TelaPrincipal() {
         initComponents();
         configurarJanela();
+    }
+
+    //construtor com cliente
+    public TelaPrincipal(Cliente usuario) {
+        initComponents();
+        configurarJanela();
+
+        this.clienteLogado = usuario;
+    }
+
+    //construtor com funcionario
+    public TelaPrincipal(Funcionario usuario) {
+        initComponents();
+        configurarJanela();
+
+        this.funcionarioLogado = usuario;
     }
 
     private void configurarJanela() {
@@ -51,6 +73,7 @@ public class TelaPrincipal extends JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jMenuBar = new javax.swing.JMenuBar();
         jMenuCadastro = new javax.swing.JMenu();
         jSubMenuCadastroCliente = new javax.swing.JMenu();
@@ -96,13 +119,25 @@ public class TelaPrincipal extends JFrame {
             }
         });
 
+        jButton2.setText("Perfil");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(190, 190, 190)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(190, 190, 190)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(229, 229, 229)
+                        .addComponent(jButton2)))
                 .addGap(190, 190, 190))
         );
         jPanel2Layout.setVerticalGroup(
@@ -110,7 +145,9 @@ public class TelaPrincipal extends JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(272, 272, 272))
+                .addGap(50, 50, 50)
+                .addComponent(jButton2)
+                .addContainerGap())
         );
 
         jMenuCadastro.setText("Cadastro");
@@ -336,6 +373,21 @@ public class TelaPrincipal extends JFrame {
         abrirRelatorio(new VendaRelatorioController());
     }//GEN-LAST:event_jMenuItemRelatorioVendasActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Perfil perfil = null;
+
+        if (clienteLogado != null) {
+            perfil = clienteLogado;
+        } else if (funcionarioLogado != null) {
+            perfil = funcionarioLogado;
+        }
+
+        if(perfil != null) {
+            new TelaPerfil(this, perfil).setVisible(true);
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     private void abrirCadastro(CadastroController controller) {
         new TelaCadastro(this, controller).setVisible(true);
     }
@@ -414,7 +466,7 @@ public class TelaPrincipal extends JFrame {
 
     private void abrirVenda() {
         TelaVenda telaVenda = new TelaVenda(this);
-        
+
         telaVenda.setVisible(true);
     }
 
@@ -427,6 +479,7 @@ public class TelaPrincipal extends JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenu jMenuCadastro;
     private javax.swing.JMenuItem jMenuItemCadastroCliente;

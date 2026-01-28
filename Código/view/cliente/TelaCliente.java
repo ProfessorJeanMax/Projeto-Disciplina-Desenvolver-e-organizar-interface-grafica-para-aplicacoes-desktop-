@@ -38,7 +38,6 @@ public class TelaCliente extends JPanel {
         add(txtEndereco);
     }
 
-    // ===== Getters =====
     public JTextField getTxtNome() {
         return txtNome;
     }
@@ -59,24 +58,7 @@ public class TelaCliente extends JPanel {
         return txtEndereco;
     }
 
-    // ===== Setters (NOVO) =====
-    public void setTxtNome(String nome) {
-        txtNome.setText(nome);
-    }
+    
 
-    public void setTxtCpf(String cpf) {
-        txtCpf.setText(cpf);
-    }
 
-    public void setTxtTelefone(String telefone) {
-        txtTelefone.setText(telefone);
-    }
-
-    public void setTxtEmail(String email) {
-        txtEmail.setText(email);
-    }
-
-    public void setTxtEndereco(String endereco) {
-        txtEndereco.setText(endereco);
-    }
 }
